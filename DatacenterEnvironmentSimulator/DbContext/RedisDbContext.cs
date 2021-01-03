@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using DatacenterEnvironmentSimulator.Models;
 using NReJSON;
 using StackExchange.Redis;
-using Environment = DatacenterEnvironmentSimulator.Models.Environment;
 
 namespace DatacenterEnvironmentSimulator.DbContext
 {
@@ -20,17 +20,17 @@ namespace DatacenterEnvironmentSimulator.DbContext
 			_db = redis.GetDatabase();
 		}
 
-		public void SetData(Environment environment)
+		public void SetData(ISet<Server> servers)
 		{
-			var jsonObj = JsonSerializer.Serialize(environment);
+			var jsonObj = JsonSerializer.Serialize(servers);
 			_db.JsonSet(Key, jsonObj);
 		}
 
-		public Environment GetData()
+		public ISet<Server> GetData()
 		{
 			var str = (string) _db.JsonGet(Key);
-			var environment = (Environment) JsonSerializer.Deserialize(str, typeof(Environment));
-			return environment;
+			var servers = (ISet<Server>) JsonSerializer.Deserialize(str, typeof(ISet<Server>));
+			return servers;
 		}
 	}
 }

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatacenterEnvironmentSimulator.DbContext;
-using Environment = DatacenterEnvironmentSimulator.Models.Environment;
+using DatacenterEnvironmentSimulator.Models;
 
 namespace DatacenterEnvironmentSimulator.Repository
 {
-	public class RedisRepository : IRepository<Environment>
+	public class RedisRepository : IRepository<ISet<Server>>
 	{
 		private readonly RedisDbContext _dbContext;
 
@@ -16,12 +16,12 @@ namespace DatacenterEnvironmentSimulator.Repository
 			_dbContext = new RedisDbContext();
 		}
 
-		public void SetData(Environment environment)
+		public void SetData(ISet<Server> environment)
 		{
 			_dbContext.SetData(environment);
 		}
 
-		public Environment GetData()
+		public ISet<Server> GetData()
 		{
 			return _dbContext.GetData();
 		}

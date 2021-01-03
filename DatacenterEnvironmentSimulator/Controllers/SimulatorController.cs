@@ -4,12 +4,12 @@ using System.Linq;
 using System.Runtime.Versioning;
 using System.Text.Json;
 using System.Threading.Tasks;
+using DatacenterEnvironmentSimulator.Models;
 using DatacenterEnvironmentSimulator.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NReJSON;
 using StackExchange.Redis;
-using Environment = DatacenterEnvironmentSimulator.Models.Environment;
 
 namespace DatacenterEnvironmentSimulator.Controllers
 {
@@ -17,24 +17,24 @@ namespace DatacenterEnvironmentSimulator.Controllers
 	[Route("[controller]")]
 	public class SimulatorController : ControllerBase
 	{
-		private readonly IRepository<Environment> _repository;
+		private readonly IRepository<ISet<Server>> _repository;
 
 		private readonly ILogger<SimulatorController> _logger;
 
-		public SimulatorController(IRepository<Environment> repository, ILogger<SimulatorController> logger)
+		public SimulatorController(IRepository<ISet<Server>> repository, ILogger<SimulatorController> logger)
 		{
 			_repository = repository ?? throw new ArgumentNullException(nameof(repository));
 			_logger = logger;
 		}
 
 		[HttpPost]
-		public void SetData(Environment environment)
+		public void SetData(ISet<Server> servers)
 		{
-			_repository.SetData(environment);
+			_repository.SetData(servers);
 		}
 
 		[HttpGet]
-		public Environment Get()
+		public ISet<Server> Get()
 		{
 			return _repository.GetData();
 		}
