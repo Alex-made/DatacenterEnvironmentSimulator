@@ -7,8 +7,8 @@ namespace DatacenterEnvironmentSimulator.Repository
 {
 	public interface IRepository<T> where T : class
 	{
-		void SetData(T environment);
+		void SetData(string key, T value);
 
-		T GetData();
+		T GetData(string key);
 	}
 }

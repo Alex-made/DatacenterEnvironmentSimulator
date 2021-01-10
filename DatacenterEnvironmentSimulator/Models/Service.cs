@@ -11,5 +11,6 @@ namespace DatacenterEnvironmentSimulator.Models
 		public string Os { get; set; }
 		public float Hdd { get; set; }
 		public float Ram { get; set; }
+		public float Cpu { get; set; }
 	}
 }

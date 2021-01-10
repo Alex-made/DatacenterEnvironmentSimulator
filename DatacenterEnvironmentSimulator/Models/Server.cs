@@ -13,6 +13,7 @@ namespace DatacenterEnvironmentSimulator.Models
 		public float HddFree { get; set; }
 		public float RamFull { get; set; }
 		public float RamFree { get; set; }
+		public  int Cpu { get; set; }
 		public ICollection<Service> Services { get; set; }
 	}
 }

@@ -16,14 +16,14 @@ namespace DatacenterEnvironmentSimulator.Repository
 			_dbContext = new RedisDbContext();
 		}
 
-		public void SetData(ISet<Server> environment)
+		public void SetData(string key, ISet<Server> environment)
 		{
-			_dbContext.SetData(environment);
+			_dbContext.SetData(key, environment);
 		}
 
-		public ISet<Server> GetData()
+		public ISet<Server> GetData(string key)
 		{
-			return _dbContext.GetData();
+			return _dbContext.GetData(key);
 		}
 	}
 }

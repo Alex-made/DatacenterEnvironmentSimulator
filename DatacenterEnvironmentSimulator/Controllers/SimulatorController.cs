@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using DatacenterEnvironmentSimulator.Models;
 using DatacenterEnvironmentSimulator.Repository;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NReJSON;
@@ -28,15 +29,15 @@ namespace DatacenterEnvironmentSimulator.Controllers
 		}
 
 		[HttpPost]
-		public void SetData(ISet<Server> servers)
+		public void SetData(string environmentName, ISet<Server> servers)
 		{
-			_repository.SetData(servers);
+			_repository.SetData(environmentName, servers);
 		}
 
 		[HttpGet]
-		public ISet<Server> Get()
+		public ISet<Server> Get(string environmentName)
 		{
-			return _repository.GetData();
+			return _repository.GetData(environmentName);
 		}
 	}
 }

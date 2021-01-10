@@ -12,7 +12,6 @@ namespace DatacenterEnvironmentSimulator.DbContext
 	public class RedisDbContext
 	{
 		private readonly IDatabase _db;
-		private const string Key = "environmentKey";
 
 		public RedisDbContext()
 		{
@@ -20,15 +19,15 @@ namespace DatacenterEnvironmentSimulator.DbContext
 			_db = redis.GetDatabase();
 		}
 
-		public void SetData(ISet<Server> servers)
+		public void SetData(string key, ISet<Server> servers)
 		{
 			var jsonObj = JsonSerializer.Serialize(servers);
-			_db.JsonSet(Key, jsonObj);
+			_db.JsonSet(key, jsonObj);
 		}
 
-		public ISet<Server> GetData()
+		public ISet<Server> GetData(string key)
 		{
-			var str = (string) _db.JsonGet(Key);
+			var str = (string) _db.JsonGet(key);
 			var servers = (ISet<Server>) JsonSerializer.Deserialize(str, typeof(ISet<Server>));
 			return servers;
 		}
